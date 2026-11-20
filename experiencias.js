@@ -2,17 +2,18 @@
 // estrellas: número de 0 a 5 (acepta medias, ej. 4.5) o null si no lo sabés
 // error404: true → el botón se puede tocar pero lleva a la página de error
 // reserva: true → el botón lleva a la página de reserva de esa experiencia
+// detalle: párrafo que aparece en la página de reserva
 // noDisponible: si tiene texto, el botón aparece gris con ese texto y no se puede canjear
 const OPCIONES = [
   { emoji: "🍽️", color: "#ffe9d6", categoria: "Gastronomía",
     titulo: "Cena en Kansas", imagen: "img/kansas.jpg",
     descripcion: "Incluye entrada, plato principal y postre.",
-    estrellas: 5, resena: "Muy recomendada",
+    estrellas: 5, resena: "Las mejores ribs del mundo",
     noDisponible: "Ya no está disponible" },
   { emoji: "🧁", color: "#ffe3ef", categoria: "Gastronomía",
     titulo: "Banquete de lujo en Maru Botana", imagen: "img/maru.jpg", posicion: "center 15%",
     descripcion: "Desayuno o merienda para dos personas.",
-    estrellas: 5, resena: "Excelente",
+    estrellas: 5, resena: "Excelente · Cafetería premium",
     noDisponible: "Ya no está disponible" },
   { emoji: "🔥", color: "#ffe0d1", categoria: "Gastronomía",
     titulo: "Almuerzo en parrilla \"Lo de Walter\"", imagen: "img/walter.jpg", posicion: "center 8%",
@@ -27,7 +28,7 @@ const OPCIONES = [
   { emoji: "🛖", color: "#f6ecd9", categoria: "Estadías",
     titulo: "Hotel en Pampa del Infierno, Chaco", imagen: "img/pampa.jpg",
     descripcion: "Cabaña para dos, disponible todo el año.",
-    estrellas: 2.5, resena: "Un poco calurosas",
+    estrellas: 2.5, resena: "Rústicas · Un poco calurosas",
     error404: true },
   { emoji: "🧗", color: "#e6f7ea", categoria: "Aventura",
     titulo: "Pura adrenalina en las alturas", imagen: "img/paracaidas.jpg",
@@ -42,16 +43,19 @@ const OPCIONES = [
   { emoji: "💡", color: "#e8e6ff", categoria: "Salidas",
     titulo: "Juegos \"Lumiverse\"", imagen: "img/lumiverse.jpg",
     descripcion: "Luces, muros interactivos y retos inesperados.",
-    estrellas: 3, resena: "Pilas no incluidas",
+    estrellas: 4, resena: "Brillante · Sorprendente",
+    detalle: "Una experiencia de juego inmersiva en salas llenas de luces, con pisos y muros interactivos que reaccionan a cada movimiento. Vas a enfrentarte a desafíos de agilidad, memoria, puntería y trabajo en equipo, sumando puntos en cada sala. Ideal para ir con amigos y competir para ver quién se lleva el mejor puntaje.",
     reserva: true },
   { emoji: "⚖️", color: "#f1ece4", categoria: "Salidas",
     titulo: "The Jury Experience", imagen: "img/jury.jpg",
     descripcion: "¿Quién es el \"Asesino del Millón de Dólares\"?",
-    estrellas: 5, resena: "Innovador",
+    estrellas: 4.5, resena: "Innovador · Interactivo",
+    detalle: "Una obra de teatro inmersivo donde el público deja de ser espectador y se convierte en jurado. Vas a presenciar el juicio por el \"Asesinato del Millón de Dólares\", escuchar a testigos y acusados, analizar las pruebas y, al final, votar el veredicto desde tu butaca. Cada función puede terminar distinto según lo que decida la sala.",
     reserva: true },
   { emoji: "🔐", color: "#e3ecff", categoria: "Salidas",
     titulo: "Club del Escape Pilar", imagen: "img/escape.jpg", posicion: "center 35%",
     descripcion: "Sala de escape con temática de Harry Potter.",
-    estrellas: 5, resena: "Súper divertido",
+    estrellas: 5, resena: "Divertido · Desafiante",
+    detalle: "Una sala de escape ambientada en el mundo de la magia, para jugar en equipo. Contra reloj, van a tener que resolver acertijos, encontrar pistas ocultas y abrir candados para lograr salir a tiempo. No hace falta experiencia previa: solo ganas de pensar, buscar y divertirse en grupo.",
     reserva: true }
 ];

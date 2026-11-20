@@ -7,7 +7,7 @@
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="stylesheet" href="styles.css">
 </head>
-<body class="pagina-error pagina-reserva">
+<body class="pagina-reserva">
 
   <header>
     <a class="logo" href="index.html">
@@ -20,14 +20,16 @@
   </header>
 
   <main>
+    <img class="reserva-foto" id="foto" src="" alt="">
     <span class="opcion-categoria" id="categoria"></span>
     <h1 id="titulo"></h1>
     <p class="subtitulo" id="descripcion"></p>
+    <p class="reserva-detalle" id="detalle"></p>
 
-    <img class="error-imagen" src="gato-dormido.jpg" alt="Un gato durmiendo sobre una notebook">
-    <p class="aviso">Disculpas, en este momento no podemos gestionar la reserva online. Por favor contactate con quien te regaló la CatBox para coordinar el canje.</p>
-
-    <button class="boton" id="volver">← Volver a las experiencias</button>
+    <div class="botones">
+      <button class="boton boton-secundario" id="volver">← Volver a las experiencias</button>
+      <button class="boton" id="canjear">Canjear premio</button>
+    </div>
   </main>
 
   <footer>
@@ -43,12 +45,20 @@
       window.location.replace("canje.html");
     } else {
       document.title = "CatBox – " + op.titulo;
+      const foto = document.getElementById("foto");
+      foto.src = op.imagen;
+      foto.alt = op.titulo;
+      foto.style.objectPosition = op.posicion || "center";
       document.getElementById("categoria").textContent = op.categoria;
       document.getElementById("titulo").textContent = op.titulo;
       document.getElementById("descripcion").textContent = op.descripcion;
+      document.getElementById("detalle").textContent = op.detalle || "";
     }
     document.getElementById("volver").addEventListener("click", () => {
       window.location.href = "canje.html";
+    });
+    document.getElementById("canjear").addEventListener("click", () => {
+      window.location.href = "procesando.html?id=" + id;
     });
   </script>
 </body>
