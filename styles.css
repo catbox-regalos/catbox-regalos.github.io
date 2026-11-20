@@ -1,0 +1,261 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --violeta: #6c4fd8;
+  --violeta-claro: #efeaff;
+  --texto: #3a3a3a;
+  --gris: #8a8a8a;
+  --borde: #d6d6d6;
+  --error: #d64545;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: var(--texto);
+  background: #fff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- Header ---------- */
+header {
+  border-bottom: 1px solid #ececec;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: #111;
+}
+.logo img { width: 48px; height: 48px; object-fit: contain; }
+.logo-texto { display: flex; flex-direction: column; line-height: 1.05; }
+.logo-nombre { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.5px; }
+.logo-slogan { font-size: 0.68rem; color: var(--gris); }
+
+.header-link {
+  font-size: 0.85rem;
+  color: var(--violeta);
+  border: 1.5px solid var(--violeta);
+  border-radius: 8px;
+  padding: 6px 12px;
+  white-space: nowrap;
+}
+
+/* ---------- Main ---------- */
+main {
+  flex: 1;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 40px 20px 60px;
+}
+
+h1 {
+  font-size: 1.9rem;
+  line-height: 1.2;
+  color: #444;
+  margin-bottom: 12px;
+}
+.subtitulo { font-size: 1.1rem; margin-bottom: 36px; }
+
+label.etiqueta { display: block; font-size: 0.95rem; margin-bottom: 12px; }
+
+/* ---------- Cajitas del código ---------- */
+.codigo {
+  display: flex;
+  border: 1px solid #bbb;
+  border-radius: 8px;
+  overflow: hidden;
+  max-width: 440px;
+}
+.codigo input {
+  flex: 1;
+  min-width: 0;
+  height: 52px;
+  border: none;
+  border-right: 1px solid #e3e3e3;
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #222;
+  outline: none;
+  background: #fff;
+}
+.codigo input:last-child { border-right: none; }
+.codigo input:focus { background: var(--violeta-claro); }
+.codigo.error { border-color: var(--error); animation: sacudida 0.35s; }
+
+@keyframes sacudida {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  75% { transform: translateX(6px); }
+}
+
+.mensaje-error {
+  color: var(--error);
+  font-size: 0.88rem;
+  margin-top: 10px;
+  min-height: 1.2em;
+  margin-bottom: 18px;
+}
+
+.ayuda {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.88rem;
+  margin: 8px 0 24px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: var(--texto);
+}
+.ayuda-texto {
+  font-size: 0.85rem;
+  color: var(--gris);
+  margin: -14px 0 24px;
+  display: none;
+}
+.ayuda-texto.visible { display: block; }
+
+/* ---------- Botones ---------- */
+.boton {
+  width: 100%;
+  padding: 15px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  background: var(--violeta);
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.boton:disabled { background: #b3b3b3; cursor: not-allowed; }
+.boton:not(:disabled):hover { background: #5638c4; }
+
+/* ---------- Página de canje ---------- */
+.canje main { max-width: 1180px; }
+.canje h1, .canje .subtitulo { text-align: center; }
+
+.opciones {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 18px;
+}
+
+.opcion {
+  border: 1px solid #e6e6e6;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.opcion-imagen {
+  height: 170px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.4rem;
+}
+.opcion-cuerpo { padding: 16px; flex: 1; display: flex; flex-direction: column; }
+.opcion-categoria {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--violeta);
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.opcion h2 { font-size: 1.08rem; margin-bottom: 6px; }
+.opcion p { font-size: 0.88rem; color: #666; margin-bottom: 10px; flex: 1; }
+.opcion-estrellas { font-size: 0.8rem; color: var(--gris); margin-bottom: 14px; line-height: 1.5; }
+.opcion-estrellas .estrellas { vertical-align: -1px; margin-right: 4px; }
+.opcion .boton { padding: 11px; font-size: 0.92rem; }
+
+/* Estrellas con medias estrellas */
+.estrellas { position: relative; display: inline-block; color: #d6d6d6; font-size: 1rem; letter-spacing: 1px; line-height: 1; }
+.estrellas .relleno { position: absolute; top: 0; left: 0; overflow: hidden; white-space: nowrap; color: #f5b301; }
+
+/* Experiencias no disponibles */
+.opcion.no-disponible .opcion-imagen { filter: grayscale(1); opacity: 0.55; }
+
+/* ---------- Modal de confirmación ---------- */
+.modal-fondo {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 10;
+}
+.modal-fondo.visible { display: flex; }
+.modal {
+  background: #fff;
+  border-radius: 14px;
+  padding: 30px 24px;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+.modal-emoji { font-size: 3.5rem; margin-bottom: 10px; }
+.modal h2 { margin-bottom: 10px; }
+.modal p { color: #555; margin-bottom: 8px; }
+.modal .elegido { font-weight: 700; color: var(--violeta); font-size: 1.1rem; margin: 14px 0; }
+.modal .letra-chica { font-size: 0.75rem; color: var(--gris); margin: 16px 0 20px; }
+
+/* ---------- Footer ---------- */
+footer {
+  background: #fafafa;
+  border-top: 1px solid #ececec;
+  padding: 24px 20px;
+  font-size: 0.82rem;
+  color: var(--gris);
+  text-align: center;
+  line-height: 1.6;
+}
+
+@media (max-width: 420px) {
+  h1 { font-size: 1.6rem; }
+  .codigo input { height: 46px; font-size: 1.1rem; }
+  .header-link { display: none; }
+}
+
+/* ---------- Página de error 404 ---------- */
+.pagina-error main { text-align: center; }
+.pagina-error .error-imagen { width: 100%; max-width: 420px; height: auto; margin: 0 auto 20px; display: block; }
+.pagina-error h1 { font-size: 2.4rem; margin-bottom: 8px; }
+.pagina-error .subtitulo { margin-bottom: 28px; }
+.pagina-error .boton { max-width: 320px; }
+
+/* Grilla: 1 columna en celular, 2 en tablet, 3 en computadora */
+.opciones { grid-template-columns: 1fr; }
+@media (min-width: 640px) { .opciones { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1000px) { .opciones { grid-template-columns: repeat(3, 1fr); } }
+.opcion-imagen img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* ---------- Página de reserva ---------- */
+.pagina-reserva h1 { font-size: 1.9rem; margin-bottom: 8px; }
+.pagina-reserva .opcion-categoria { display: block; margin-bottom: 8px; }
+.pagina-reserva .subtitulo { margin-bottom: 20px; }
+.pagina-reserva .aviso {
+  background: var(--violeta-claro);
+  border-radius: 10px;
+  padding: 16px 18px;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 24px;
+}

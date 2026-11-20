@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CatBox – Reservá tu experiencia</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="pagina-error pagina-reserva">
+
+  <header>
+    <a class="logo" href="index.html">
+      <img src="logo.png" alt="Logo de CatBox">
+      <span class="logo-texto">
+        <span class="logo-nombre">catbox</span>
+        <span class="logo-slogan">como una BigBox, pero mucho peor</span>
+      </span>
+    </a>
+  </header>
+
+  <main>
+    <span class="opcion-categoria" id="categoria"></span>
+    <h1 id="titulo"></h1>
+    <p class="subtitulo" id="descripcion"></p>
+
+    <img class="error-imagen" src="gato-dormido.jpg" alt="Un gato durmiendo sobre una notebook">
+    <p class="aviso">Disculpas, en este momento no podemos gestionar la reserva online. Por favor contactate con quien te regaló la CatBox para coordinar el canje.</p>
+
+    <button class="boton" id="volver">← Volver a las experiencias</button>
+  </main>
+
+  <footer>
+    Regalar CatBox es regalar momentos olvidables.<br>
+    © CatBox 2026
+  </footer>
+
+  <script src="experiencias.js"></script>
+  <script>
+    const id = Number(new URLSearchParams(location.search).get("id"));
+    const op = OPCIONES[id];
+    if (!op || !op.reserva) {
+      window.location.replace("canje.html");
+    } else {
+      document.title = "CatBox – " + op.titulo;
+      document.getElementById("categoria").textContent = op.categoria;
+      document.getElementById("titulo").textContent = op.titulo;
+      document.getElementById("descripcion").textContent = op.descripcion;
+    }
+    document.getElementById("volver").addEventListener("click", () => {
+      window.location.href = "canje.html";
+    });
+  </script>
+</body>
+</html>

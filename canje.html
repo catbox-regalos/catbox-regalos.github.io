@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CatBox – Elegí tu experiencia</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    // Si alguien entra directo sin poner el código, lo mandamos a la portada
+    try {
+      if (sessionStorage.getItem("catbox-ok") !== "1") window.location.replace("index.html");
+    } catch (e) {}
+  </script>
+</head>
+<body class="canje">
+
+  <header>
+    <a class="logo" href="index.html">
+      <img src="logo.png" alt="Logo de CatBox">
+      <span class="logo-texto">
+        <span class="logo-nombre">catbox</span>
+        <span class="logo-slogan">como una BigBox, pero mucho peor</span>
+      </span>
+    </a>
+    <span class="header-link">✅ Código activado</span>
+  </header>
+
+  <main>
+    <h1>¡Código activado, Barbi! 🎉</h1>
+    <p class="subtitulo">Elegí la experiencia que quieras canjear.</p>
+
+    <div class="opciones" id="opciones"></div>
+  </main>
+
+  <footer>
+    Regalar CatBox es regalar momentos olvidables.<br>
+    © CatBox 2026
+  </footer>
+
+  <script src="experiencias.js"></script>
+  <script>
+    const contenedor = document.getElementById("opciones");
+
+    OPCIONES.forEach(op => {
+      const tarjeta = document.createElement("article");
+      tarjeta.className = "opcion" + (op.noDisponible ? " no-disponible" : "");
+      tarjeta.innerHTML = `
+        <div class="opcion-imagen" style="background:${op.color}">${op.imagen ? `<img src="${op.imagen}" alt="" style="object-position:${op.posicion || "center"}">` : op.emoji}</div>
+        <div class="opcion-cuerpo">
+          <span class="opcion-categoria"></span>
+          <h2></h2>
+          <p></p>
+          <span class="opcion-estrellas"></span>
+          <button class="boton"></button>
+        </div>`;
+      tarjeta.querySelector(".opcion-categoria").textContent = op.categoria;
+      tarjeta.querySelector("h2").textContent = op.titulo;
+      tarjeta.querySelector("p").textContent = op.descripcion;
+
+      const zonaEstrellas = tarjeta.querySelector(".opcion-estrellas");
+      if (typeof op.estrellas === "number") {
+        const pct = Math.max(0, Math.min(5, op.estrellas)) / 5 * 100;
+        zonaEstrellas.innerHTML = `<span class="estrellas">★★★★★<span class="relleno" style="width:${pct}%">★★★★★</span></span>`;
+      } else {
+        zonaEstrellas.innerHTML = `<span>?</span>`;
+      }
+      zonaEstrellas.append(" · " + op.resena);
+
+      const boton = tarjeta.querySelector("button");
+      if (op.noDisponible) {
+        boton.textContent = op.noDisponible;
+        boton.disabled = true;
+      } else {
+        boton.textContent = "Canjear esta experiencia";
+        boton.addEventListener("click", () => {
+          if (op.reserva) window.location.href = "reserva.html?id=" + OPCIONES.indexOf(op);
+          else window.location.href = "error.html";
+        });
+      }
+      contenedor.appendChild(tarjeta);
+    });
+
+  </script>
+</body>
+</html>
