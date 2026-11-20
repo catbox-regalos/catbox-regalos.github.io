@@ -27,6 +27,23 @@
     <p class="aviso">Ante cualquier duda, ponete en contacto con <strong>soporte@catbox.com</strong></p>
   </main>
 
+  <!-- Pop-up de la ruleta -->
+  <div class="ruleta-fondo" id="ruletaFondo" aria-hidden="true">
+    <div class="ruleta-modal" role="dialog" aria-labelledby="ruletaTitulo">
+      <button class="ruleta-cerrar" id="ruletaCerrar" aria-label="Cerrar">×</button>
+      <h2 id="ruletaTitulo">CatBox te quiere hacer un regalo adicional.<br>¡Girá la ruleta y ganá!</h2>
+      <div class="ruleta-zona">
+        <div class="ruleta-flecha"></div>
+        <canvas id="ruleta" width="600" height="600"></canvas>
+        <button class="ruleta-centro" id="girar">GIRAR</button>
+      </div>
+      <div class="ruleta-resultado" id="resultado">
+        <div class="ruleta-premio">🍷</div>
+        <p>¡GANASTE una Wine Bar Experience!</p>
+      </div>
+    </div>
+  </div>
+
   <footer>
     Regalar CatBox es regalar momentos olvidables.<br>
     © CatBox 2026
@@ -36,6 +53,83 @@
   <script>
     const op = OPCIONES[Number(new URLSearchParams(location.search).get("id"))];
     if (op) document.getElementById("experiencia").textContent = op.titulo;
+  </script>
+  <script>
+    // ---------- Ruleta de premios ----------
+    const PREMIOS = ["🥐","🍔","📱","⌚","💰","💊","🛍️","📦","📚","🚗","✈️","🚀","🏐","🎮","🐶","🍷"];
+    const GANADOR = "🍷";   // ⬅️ el premio que siempre sale
+    const COLORES = ["#6c4fd8","#f4a3c0","#ffd166","#8ecae6","#9d86e9","#ffb4a2","#80d6a3","#f7a072"];
+
+    const canvas = document.getElementById("ruleta");
+    const ctx = canvas.getContext("2d");
+    const n = PREMIOS.length;
+    const seg = 2 * Math.PI / n;
+    const R = canvas.width / 2;
+
+    function dibujar() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.save();
+      ctx.translate(R, R);
+      for (let i = 0; i < n; i++) {
+        const ini = -Math.PI / 2 + i * seg;
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.arc(0, 0, R - 6, ini, ini + seg);
+        ctx.closePath();
+        ctx.fillStyle = COLORES[i % COLORES.length];
+        ctx.fill();
+        ctx.strokeStyle = "#fff";
+        ctx.lineWidth = 4;
+        ctx.stroke();
+        ctx.save();
+        ctx.rotate(ini + seg / 2);
+        ctx.translate(R * 0.72, 0);
+        ctx.rotate(Math.PI / 2);
+        ctx.font = "52px 'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(PREMIOS[i], 0, 0);
+        ctx.restore();
+      }
+      ctx.beginPath();
+      ctx.arc(0, 0, R - 4, 0, 2 * Math.PI);
+      ctx.strokeStyle = "#3a2a8c";
+      ctx.lineWidth = 8;
+      ctx.stroke();
+      ctx.restore();
+    }
+    dibujar();
+
+    const fondo = document.getElementById("ruletaFondo");
+    const botonGirar = document.getElementById("girar");
+    let girando = false;
+
+    // Aparece a los 10 segundos
+    setTimeout(() => {
+      fondo.classList.add("visible");
+      fondo.setAttribute("aria-hidden", "false");
+    }, 10000);
+
+    botonGirar.addEventListener("click", () => {
+      if (girando) return;
+      girando = true;
+      botonGirar.disabled = true;
+      const i = PREMIOS.indexOf(GANADOR);
+      const segGrados = 360 / n;
+      const desvio = (Math.random() - 0.5) * segGrados * 0.6; // que no caiga siempre justo en el medio
+      const vueltas = 360 * 7;
+      const destino = vueltas - (i + 0.5) * segGrados + desvio;
+      canvas.style.transform = `rotate(${destino}deg)`;
+    });
+
+    canvas.addEventListener("transitionend", () => {
+      document.getElementById("resultado").classList.add("visible");
+    });
+
+    document.getElementById("ruletaCerrar").addEventListener("click", () => {
+      fondo.classList.remove("visible");
+      fondo.setAttribute("aria-hidden", "true");
+    });
   </script>
 </body>
 </html>

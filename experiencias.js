@@ -38,7 +38,7 @@ const OPCIONES = [
   { emoji: "💆", color: "#efeaff", categoria: "Bienestar",
     titulo: "Masaje descontracturante", imagen: "img/masaje.jpg",
     descripcion: "Tratamiento completo para una persona.",
-    estrellas: 1, resena: "Acosadores",
+    estrellas: 1, resena: "Estafadores · Delincuentes",
     noDisponible: "Denunciado - Proceso judicial en curso" },
   { emoji: "💡", color: "#e8e6ff", categoria: "Salidas",
     titulo: "Juegos \"Lumiverse\"", imagen: "img/lumiverse.jpg",
