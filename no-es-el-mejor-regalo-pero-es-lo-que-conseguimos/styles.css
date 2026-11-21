@@ -339,3 +339,14 @@ footer {
 .ruleta-resultado.visible { display: block; animation: aparecer 0.4s ease-out; }
 .ruleta-premio { font-size: 3.2rem; line-height: 1; margin-bottom: 6px; }
 .ruleta-resultado p { font-size: 1.3rem; font-weight: 800; color: var(--violeta); }
+
+/* ---------- Campo de código secreto ---------- */
+.campo-codigo {
+  width: 100%; max-width: 440px; height: 52px;
+  border: 1px solid #bbb; border-radius: 8px;
+  padding: 0 16px; font-size: 1.15rem;
+  outline: none; color: #222; background: #fff;
+}
+.campo-codigo::placeholder { letter-spacing: 0; color: #aaa; font-size: 1rem; }
+.campo-codigo:focus { border-color: var(--violeta); box-shadow: 0 0 0 3px var(--violeta-claro); }
+.campo-codigo.error { border-color: var(--error); animation: sacudida 0.35s; }

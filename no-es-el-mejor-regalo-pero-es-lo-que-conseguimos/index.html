@@ -22,10 +22,10 @@
 
   <main>
     <h1>Barbi, ¡tus amigos te hicieron un regalo! 🎁</h1>
-    <p class="subtitulo">Ingresá el código CatBox para canjearlo.</p>
+    <p class="subtitulo">Ingresá el código secreto para canjearlo.</p>
 
     <form id="formulario" novalidate>
-      <div class="codigo" id="codigo"></div>
+      <input class="campo-codigo" id="codigo" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="Código secreto" placeholder="Código secreto">
       <p class="mensaje-error" id="error" role="alert"></p>
 
       <button type="submit" class="boton" id="activar" disabled>Activar mi código</button>
@@ -38,67 +38,37 @@
   </footer>
 
   <script>
-    // ⬇️ Cambiá acá el código si querés
-    const CODIGO_CORRECTO = "492530";
+    // ⬇️ RESPUESTAS CORRECTAS (no importan mayúsculas, tildes ni espacios de más)
+    const RESPUESTAS = ["Juan", "Juan Martín", "Pili", "Pilar", "Santi", "Santiago", "Todos", "Ninguno"];
 
-    const contenedor = document.getElementById("codigo");
+    const normalizar = t => t.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+                             .toLowerCase().trim().replace(/\s+/g, " ");
+    const validas = RESPUESTAS.map(normalizar);
+
+    const campo = document.getElementById("codigo");
     const boton = document.getElementById("activar");
     const error = document.getElementById("error");
-    const largo = CODIGO_CORRECTO.length;
 
-    // Crear una cajita por cada dígito
-    for (let i = 0; i < largo; i++) {
-      const input = document.createElement("input");
-      input.id = "d" + i;
-      input.type = "text";
-      input.inputMode = "numeric";
-      input.maxLength = 1;
-      input.autocomplete = "off";
-      input.setAttribute("aria-label", "Dígito " + (i + 1));
-      contenedor.appendChild(input);
-    }
-    const cajitas = [...contenedor.querySelectorAll("input")];
-
-    function actualizar() {
-      boton.disabled = cajitas.some(c => c.value === "");
+    campo.addEventListener("input", () => {
+      boton.disabled = campo.value.trim() === "";
       error.textContent = "";
-      contenedor.classList.remove("error");
-    }
-
-    cajitas.forEach((caja, i) => {
-      caja.addEventListener("input", () => {
-        caja.value = caja.value.replace(/\D/g, "").slice(-1);
-        if (caja.value && i < largo - 1) cajitas[i + 1].focus();
-        actualizar();
-      });
-      caja.addEventListener("keydown", e => {
-        if (e.key === "Backspace" && !caja.value && i > 0) cajitas[i - 1].focus();
-      });
-      // Permite pegar el código completo
-      caja.addEventListener("paste", e => {
-        e.preventDefault();
-        const texto = (e.clipboardData.getData("text") || "").replace(/\D/g, "");
-        texto.split("").slice(0, largo - i).forEach((d, j) => cajitas[i + j].value = d);
-        cajitas[Math.min(i + texto.length, largo - 1)].focus();
-        actualizar();
-      });
+      campo.classList.remove("error");
     });
 
     document.getElementById("formulario").addEventListener("submit", e => {
       e.preventDefault();
-      const ingresado = cajitas.map(c => c.value).join("");
-      if (ingresado === CODIGO_CORRECTO) {
+      if (validas.includes(normalizar(campo.value))) {
         try { sessionStorage.setItem("catbox-ok", "1"); } catch (err) {}
         window.location.href = "canje.html";
       } else {
         error.textContent = "Ese código no existe. Ni los gatos lo aceptarían. Probá de nuevo.";
-        contenedor.classList.remove("error");
-        void contenedor.offsetWidth; // reinicia la animación
-        contenedor.classList.add("error");
+        campo.classList.remove("error");
+        void campo.offsetWidth; // reinicia la animación
+        campo.classList.add("error");
       }
     });
 
-    cajitas[0].focus();
+    campo.focus();
   </script>
 </body>
 </html>
