@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CatBox – Te regalaron un CatBox</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header>
+    <a class="logo" href="index.html">
+      <img src="logo.png" alt="Logo de CatBox">
+      <span class="logo-texto">
+        <span class="logo-nombre">catbox</span>
+        <span class="logo-slogan">como una BigBox, pero mucho peor</span>
+      </span>
+    </a>
+    <span class="header-link">🎁 Abrir regalo</span>
+  </header>
+
+  <main>
+    <h1>Barbi, ¡tus amigos te hicieron un regalo! 🎁</h1>
+    <p class="subtitulo">Ingresá el código CatBox para canjearlo.</p>
+
+    <form id="formulario" novalidate>
+      <div class="codigo" id="codigo"></div>
+      <p class="mensaje-error" id="error" role="alert"></p>
+
+      <button type="submit" class="boton" id="activar" disabled>Activar mi código</button>
+    </form>
+  </main>
+
+  <footer>
+    Regalar CatBox es regalar momentos olvidables.<br>
+    © CatBox 2026
+  </footer>
+
+  <script>
+    // ⬇️ Cambiá acá el código si querés
+    const CODIGO_CORRECTO = "492530";
+
+    const contenedor = document.getElementById("codigo");
+    const boton = document.getElementById("activar");
+    const error = document.getElementById("error");
+    const largo = CODIGO_CORRECTO.length;
+
+    // Crear una cajita por cada dígito
+    for (let i = 0; i < largo; i++) {
+      const input = document.createElement("input");
+      input.id = "d" + i;
+      input.type = "text";
+      input.inputMode = "numeric";
+      input.maxLength = 1;
+      input.autocomplete = "off";
+      input.setAttribute("aria-label", "Dígito " + (i + 1));
+      contenedor.appendChild(input);
+    }
+    const cajitas = [...contenedor.querySelectorAll("input")];
+
+    function actualizar() {
+      boton.disabled = cajitas.some(c => c.value === "");
+      error.textContent = "";
+      contenedor.classList.remove("error");
+    }
+
+    cajitas.forEach((caja, i) => {
+      caja.addEventListener("input", () => {
+        caja.value = caja.value.replace(/\D/g, "").slice(-1);
+        if (caja.value && i < largo - 1) cajitas[i + 1].focus();
+        actualizar();
+      });
+      caja.addEventListener("keydown", e => {
+        if (e.key === "Backspace" && !caja.value && i > 0) cajitas[i - 1].focus();
+      });
+      // Permite pegar el código completo
+      caja.addEventListener("paste", e => {
+        e.preventDefault();
+        const texto = (e.clipboardData.getData("text") || "").replace(/\D/g, "");
+        texto.split("").slice(0, largo - i).forEach((d, j) => cajitas[i + j].value = d);
+        cajitas[Math.min(i + texto.length, largo - 1)].focus();
+        actualizar();
+      });
+    });
+
+    document.getElementById("formulario").addEventListener("submit", e => {
+      e.preventDefault();
+      const ingresado = cajitas.map(c => c.value).join("");
+      if (ingresado === CODIGO_CORRECTO) {
+        try { sessionStorage.setItem("catbox-ok", "1"); } catch (err) {}
+        window.location.href = "canje.html";
+      } else {
+        error.textContent = "Ese código no existe. Ni los gatos lo aceptarían. Probá de nuevo.";
+        contenedor.classList.remove("error");
+        void contenedor.offsetWidth; // reinicia la animación
+        contenedor.classList.add("error");
+      }
+    });
+
+    cajitas[0].focus();
+  </script>
+</body>
+</html>
