@@ -342,11 +342,13 @@ footer {
 
 /* ---------- Campo de código secreto ---------- */
 .campo-codigo {
-  width: 100%; max-width: 440px; height: 52px;
-  border: 1px solid #bbb; border-radius: 8px;
-  padding: 0 16px; font-size: 1.15rem;
+  display: block; width: 100%; height: 64px; margin: 0 auto;
+  border: 1.5px solid #bbb; border-radius: 10px;
+  padding: 0 16px; font-size: 1.4rem; text-align: center;
   outline: none; color: #222; background: #fff;
+  -webkit-appearance: none; appearance: none;
 }
-.campo-codigo::placeholder { letter-spacing: 0; color: #aaa; font-size: 1rem; }
+.campo-codigo::placeholder { color: #aaa; font-size: 1.15rem; }
 .campo-codigo:focus { border-color: var(--violeta); box-shadow: 0 0 0 3px var(--violeta-claro); }
 .campo-codigo.error { border-color: var(--error); animation: sacudida 0.35s; }
+.mensaje-error { text-align: center; }
