@@ -61,7 +61,7 @@
         try { sessionStorage.setItem("catbox-ok", "1"); } catch (err) {}
         window.location.href = "canje.html";
       } else {
-        error.textContent = "Ese código no existe. Ni los gatos lo aceptarían. Probá de nuevo.";
+        error.textContent = "Código incorrecto. Probá de nuevo.";
         campo.classList.remove("error");
         void campo.offsetWidth; // reinicia la animación
         campo.classList.add("error");

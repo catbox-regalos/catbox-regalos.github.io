@@ -56,7 +56,7 @@
   </script>
   <script>
     // ---------- Ruleta de premios ----------
-    const PREMIOS = ["🥐","🍔","📱","⌚","💰","💊","🛍️","📦","📚","🚗","✈️","🚀","🏐","🎮","🐶","🍷"];
+    const PREMIOS = ["🚗","🍷","💰","🐶","✈️","💊","🏐","📱","🍔","📚","⌚","🛍️"];
     const GANADOR = "🍷";   // ⬅️ el premio que siempre sale
     const COLORES = ["#6c4fd8","#f4a3c0","#ffd166","#8ecae6","#9d86e9","#ffb4a2","#80d6a3","#f7a072"];
 
@@ -83,9 +83,9 @@
         ctx.stroke();
         ctx.save();
         ctx.rotate(ini + seg / 2);
-        ctx.translate(R * 0.72, 0);
+        ctx.translate(R * 0.66, 0);
         ctx.rotate(Math.PI / 2);
-        ctx.font = "52px 'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif";
+        ctx.font = "84px 'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif";
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
         ctx.fillText(PREMIOS[i], 0, 0);
@@ -104,11 +104,11 @@
     const botonGirar = document.getElementById("girar");
     let girando = false;
 
-    // Aparece a los 10 segundos
+    // Aparece a los 6 segundos
     setTimeout(() => {
       fondo.classList.add("visible");
       fondo.setAttribute("aria-hidden", "false");
-    }, 10000);
+    }, 6000);
 
     botonGirar.addEventListener("click", () => {
       if (girando) return;
