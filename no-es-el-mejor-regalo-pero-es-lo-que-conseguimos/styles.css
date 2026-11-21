@@ -38,7 +38,7 @@ header {
 .logo img { width: 48px; height: 48px; object-fit: contain; }
 .logo-texto { display: flex; flex-direction: column; line-height: 1.05; }
 .logo-nombre { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.5px; }
-.logo-slogan { font-size: 0.68rem; color: var(--gris); }
+.logo-slogan { font-size: 0.8rem; color: #5c5c5c; margin-top: 2px; }
 
 .header-link {
   font-size: 0.85rem;
